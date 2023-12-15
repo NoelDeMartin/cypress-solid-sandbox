@@ -5,20 +5,25 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
+        "dev:serve-pod": "community-solid-server -c @css:config/file.json -p 4000 -f ./solid-data",
         "lint": "noeldemartin-lint src",
         "test": "vitest --run",
         "test:ci": "vitest --run --reporter verbose",
-        "test:serve-app": "vite --port 5001"
+        "test:serve-app": "vite --port 5001",
+        "test:serve-pod": "community-solid-server -p 4000 -l warn"
     },
     "dependencies": {
         "@aerogel/core": "next",
         "@aerogel/plugin-i18n": "next",
+        "@aerogel/plugin-solid": "0.0.1-next.3e4851f6fd2a4f0f0362da0c88820a5f4b082052",
         "@aerogel/plugin-soukai": "next",
         "@intlify/unplugin-vue-i18n": "^0.12.2",
         "@noeldemartin/utils": "next",
+        "@solid/community-server": "^7.0.2",
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.9",
         "soukai": "next",
+        "soukai-solid": "0.5.2-next.b6340345e228903e404a02c1ed9be8fc95162e8f",
         "tailwindcss": "^3.3.2",
         "vue": "^3.3.0",
         "vue-i18n": "9.3.0-beta.19"
