@@ -2,15 +2,18 @@
     <AGAppLayout class="bg-blue-50">
         <main class="flex flex-grow flex-col items-center justify-center">
             <div v-if="$solid.isLoggedIn()" class="flex flex-col items-center gap-3">
-                <h1 class="fontsmi prose text-xl">
-                    <AGMarkdown
-                        inline
-                        :text="`Hello, [${$solid.user.name ?? $solid.user.webId}](${$solid.user.webId})`"
-                    />
-                </h1>
-                <AGButton @click="$solid.logout(true)">
-                    Log out
-                </AGButton>
+                <div class="flex items-center gap-3">
+                    <h1 class="prose font-semibold">
+                        <AGMarkdown
+                            inline
+                            :text="`Hello, [${$solid.user.name ?? $solid.user.webId}](${$solid.user.webId})`"
+                        />
+                    </h1>
+                    <AGButton @click="$solid.logout(true)">
+                        Log out
+                    </AGButton>
+                </div>
+                <TasksList class="mt-6" />
             </div>
             <AGForm
                 v-else
@@ -18,7 +21,7 @@
                 class="flex flex-col items-center gap-3"
                 @submit="$ui.loading($solid.login(form.url))"
             >
-                <h1 class="fontsmi text-xl">
+                <h1 class="text-xl font-semibold">
                     Log in with Solid
                 </h1>
                 <div class="flex">
@@ -27,9 +30,13 @@
                         Log In
                     </AGButton>
                 </div>
-                <p v-if="$solid.error" class="text-red">
-                    {{ $errors.getErrorMessage($solid.error) }}
-                </p>
+                <div v-if="$solid.error" class="flex items-center gap-3 text-red-500">
+                    <p>{{ $errors.getErrorMessage($solid.error) }}</p>
+
+                    <AGButton @click="$solid.reconnect({ force: true })">
+                        Reconnect
+                    </AGButton>
+                </div>
             </AGForm>
         </main>
     </AGAppLayout>

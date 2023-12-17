@@ -1,0 +1,9 @@
+@prefix solid: <http://www.w3.org/ns/solid/terms#> .
+@prefix schema: <https://schema.org/> .
+
+<> a solid:TypeIndex, solid:UnlistedDocument .
+
+<#tasks>
+    a solid:TypeRegistration ;
+    solid:forClass schema:Recipe ;
+    solid:instanceContainer <http://localhost:3000/alice/tasks/> .

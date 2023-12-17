@@ -1,0 +1,13 @@
+@prefix schema: <https://schema.org/> .
+@prefix crdt: <https://vocab.noeldemartin.com/crdt/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#it>
+    a schema:Action ;
+    schema:name "This task was seeded in Cypress" .
+
+<#it-metadata>
+    a crdt:Metadata ;
+    crdt:resource <#it> ;
+    crdt:createdAt "2023-12-17T00:00:00.000Z"^^xsd:dateTime ;
+    crdt:updatedAt "2023-12-17T00:00:00.000Z"^^xsd:dateTime .
