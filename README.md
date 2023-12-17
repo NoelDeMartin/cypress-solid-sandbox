@@ -1,3 +1,3 @@
-# Cypress Solid Sandbox
+# Cypress Solid Sandbox ![CI](https://github.com/NoelDeMartin/cypress-solid-sandbox/actions/workflows/ci.yml/badge.svg)
 
-App created with [AerogelJS](https://aerogel.js.org)
+Sample project to showcase using [cypress-solid](https://github.com/NoelDeMartin/cypress-solid).
