@@ -1,6 +1,6 @@
 import { podUrl, webId } from 'cypress-solid';
 
-describe('template spec', () => {
+describe('Solid interactions', () => {
 
     beforeEach(() => {
         cy.solidReset();

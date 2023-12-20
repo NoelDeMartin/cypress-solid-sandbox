@@ -1,3 +1,1 @@
-import { installSolid } from 'cypress-solid';
-
-installSolid();
+import 'cypress-solid/support';
