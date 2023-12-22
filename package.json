@@ -43,7 +43,7 @@
         "autoprefixer": "^10.4.14",
         "concurrently": "^8.2.2",
         "cypress": "^13.6.1",
-        "cypress-solid": "0.0.0-next.efafac1f27fbcc44110e902954f22f007ba9c744",
+        "cypress-solid": "^0.1.0",
         "eslint": "^8.40.0",
         "prettier": "^2.8.8",
         "prettier-eslint-cli": "^7.1.0",
