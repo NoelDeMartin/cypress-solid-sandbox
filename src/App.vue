@@ -31,7 +31,7 @@
                     </AGButton>
                 </div>
                 <div v-if="$solid.error" class="flex items-center gap-3 text-red-500">
-                    <p>{{ $errors.getErrorMessage($solid.error) }}</p>
+                    <p>{{ getErrorMessage($solid.error) }}</p>
 
                     <AGButton @click="$solid.reconnect({ force: true })">
                         Reconnect
@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { requiredStringInput, useForm } from '@aerogel/core';
+import { getErrorMessage, requiredStringInput, useForm } from '@aerogel/core';
 
 const form = useForm({ url: requiredStringInput() });
 </script>

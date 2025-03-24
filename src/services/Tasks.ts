@@ -35,4 +35,4 @@ export class TasksService extends Service {
 
 }
 
-export default facade(new TasksService());
+export default facade(TasksService);
