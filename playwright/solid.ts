@@ -112,7 +112,7 @@ export async function resetPod(retry: boolean = true): Promise<void> {
         const authenticatedFetchForCheck = requireEngine<SolidEngine>().getFetch();
         const meRes = await authenticatedFetchForCheck(podUrl('/profile/card'), { method: 'HEAD' });
         if (meRes.ok) {
-             await authenticatedFetchForCheck(podUrl('/profile/card'), { method: 'DELETE' });
+            await authenticatedFetchForCheck(podUrl('/profile/card'), { method: 'DELETE' });
         }
 
         await replaceDocument(

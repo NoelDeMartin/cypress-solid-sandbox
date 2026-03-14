@@ -6,6 +6,7 @@ function fail(message: string): never {
     throw new Error(message);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function objectWithoutEmpty(obj: any): any {
     return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null && v !== false));
 }
@@ -16,7 +17,9 @@ function isUnsuccessfulResponse(response: unknown, message?: string): response i
         response !== null &&
         'statusCode' in response &&
         'message' in response &&
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         Number((response as any).statusCode) % 100 !== 2 &&
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (!message || (response as any).message === message)
     );
 }
@@ -29,6 +32,7 @@ async function controlUrl(key: string, authorization?: string): Promise<string> 
             Authorization: authorization && `CSS-Account-Token ${authorization}`,
         }) as Record<string, string>,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json = await response.json() as any;
 
     if (isUnsuccessfulResponse(json)) {
@@ -50,6 +54,7 @@ async function getCredentials(authorization: string): Promise<{ id: string; secr
         },
         body: JSON.stringify({ webId: webId() }),
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json = await response.json() as any;
 
     if (isUnsuccessfulResponse(json)) {
@@ -69,6 +74,7 @@ async function logIn(): Promise<string | null> {
             password: config.password,
         }),
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json = await response.json() as any;
 
     if (isUnsuccessfulResponse(json, 'Invalid email/password combination.')) {
@@ -81,6 +87,7 @@ async function logIn(): Promise<string | null> {
 async function createAccount(): Promise<string> {
     const url = await controlUrl('account.create');
     const response = await fetch(url, { method: 'POST' });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json = await response.json() as any;
 
     if (isUnsuccessfulResponse(json)) {
@@ -103,6 +110,7 @@ async function createPassword(authorization: string): Promise<void> {
             password: config.password,
         }),
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json = await response.json() as any;
 
     if (isUnsuccessfulResponse(json)) {
@@ -122,6 +130,7 @@ async function createPOD(authorization: string): Promise<void> {
             name: config.account,
         }),
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json = await response.json() as any;
 
     if (isUnsuccessfulResponse(json)) {
@@ -164,6 +173,7 @@ export async function authenticate(): Promise<typeof globalThis.fetch> {
             },
             body: 'grant_type=client_credentials&scope=webid',
         });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const json = await response.json() as any;
 
         if (isUnsuccessfulResponse(json)) {

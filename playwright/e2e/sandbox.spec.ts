@@ -49,7 +49,9 @@ test.describe('Solid interactions', () => {
 
     test('Creates tasks', async ({ page }) => {
         // Arrange
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let createTaskRequest: any = null;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let createTaskResponse: any = null;
 
         page.on('response', async (response) => {
@@ -82,8 +84,12 @@ test.describe('Solid interactions', () => {
         const requestBody = createTaskRequest.postData();
 
         // Use regex for checking since the timestamp differs. Cypress-solid probably ignored the timestamp.
-        const normalizedRequest = normalizeSparql(requestBody).replace(/".*?"\^\^<http:\/\/www\.w3\.org\/2001\/XMLSchema#dateTime>/g, '""^^<http://www.w3.org/2001/XMLSchema#dateTime>');
-        const normalizedFixture = normalizeSparql(sparql).replace(/".*?"\^\^<http:\/\/www\.w3\.org\/2001\/XMLSchema#dateTime>/g, '""^^<http://www.w3.org/2001/XMLSchema#dateTime>').replace(/\[\[.*\]\]/g, '');
+        const dateTimeRegex = /".*?"\^\^<http:\/\/www\.w3\.org\/2001\/XMLSchema#dateTime>/g;
+        const replacement = '""^^<http://www.w3.org/2001/XMLSchema#dateTime>';
+        const normalizedRequest = normalizeSparql(requestBody).replace(dateTimeRegex, replacement);
+        const normalizedFixture = normalizeSparql(sparql)
+            .replace(dateTimeRegex, replacement)
+            .replace(/\[\[.*\]\]/g, '');
 
         expect(normalizedRequest).toBe(normalizedFixture);
     });
