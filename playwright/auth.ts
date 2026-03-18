@@ -36,6 +36,11 @@ async function controlUrl(key: string, authorization?: string): Promise<string> 
     const json = await response.json() as any;
 
     if (isUnsuccessfulResponse(json)) {
+        if (json.message?.includes('does not belong to this account')) {
+            // Our test deleted the profile card but then CSS recreated it without the right webId linkage or similar,
+            // or we deleted something we shouldn't have and now the WebID isn't attached to the account properly.
+            // Let's log it, and see if it recovers, though it might throw.
+        }
         throw new Error(json.message || json.name);
     }
 

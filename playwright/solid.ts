@@ -37,7 +37,9 @@ export async function solidLogin(page: Page): Promise<void> {
     }
 
     // Authorize
+    await page.waitForTimeout(200);
     await page.click('button:has-text("Authorize")');
+    await page.waitForTimeout(200);
 
     // Wait to return to the app
     await page.waitForURL('http://localhost:5001/**');
@@ -93,6 +95,8 @@ export async function resetPod(retry: boolean = true): Promise<void> {
     setEngine(new SolidEngine(authenticatedFetch));
 
     try {
+        const authenticatedFetchForCheck = requireEngine<SolidEngine>().getFetch();
+
         try {
             const rootContainer = await SolidContainer.findOrFail(podUrl('/'));
             await Promise.all(
@@ -109,7 +113,6 @@ export async function resetPod(retry: boolean = true): Promise<void> {
             // Ignore if it fails to find or iterate.
         }
 
-        const authenticatedFetchForCheck = requireEngine<SolidEngine>().getFetch();
         const meRes = await authenticatedFetchForCheck(podUrl('/profile/card'), { method: 'HEAD' });
         if (meRes.ok) {
             await authenticatedFetchForCheck(podUrl('/profile/card'), { method: 'DELETE' });
