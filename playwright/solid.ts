@@ -95,8 +95,6 @@ export async function resetPod(retry: boolean = true): Promise<void> {
     setEngine(new SolidEngine(authenticatedFetch));
 
     try {
-        const authenticatedFetchForCheck = requireEngine<SolidEngine>().getFetch();
-
         try {
             const rootContainer = await SolidContainer.findOrFail(podUrl('/'));
             await Promise.all(
@@ -111,11 +109,6 @@ export async function resetPod(retry: boolean = true): Promise<void> {
             );
         } catch (err) {
             // Ignore if it fails to find or iterate.
-        }
-
-        const meRes = await authenticatedFetchForCheck(podUrl('/profile/card'), { method: 'HEAD' });
-        if (meRes.ok) {
-            await authenticatedFetchForCheck(podUrl('/profile/card'), { method: 'DELETE' });
         }
 
         await replaceDocument(
